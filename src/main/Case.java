@@ -10,14 +10,21 @@ public class Case {
 
 	private int x;
 	private int y;
-
+	private boolean estVivant;
+	
 	public Case(int i, int j) {
 		this.x = i;
 		this.y = j;
+		this.estVivant = false;
 	}
 
 	public Image getImage() throws SlickException {
-		return new Image("assets/alive.png");
+		if(estVivant) {
+			return new Image("assets/alive.png");	
+		}
+		else {
+			return new Image("assets/dead.png");	
+		}
 	}
 
 	public float getX() {
@@ -38,9 +45,13 @@ public class Case {
 
 	public static float getYValueFrom(int row) {
 		if (row != 0) {
-			return ((row * Case.HAUTEUR_CASE) - (Case.BUFFER_CASE * row)) + Case.BUFFER_CASE;
+			return ((row * Case.HAUTEUR_CASE) - (Case.BUFFER_CASE * row)) + Case.BUFFER_CASE + 50;
 		} else {
-			return Case.BUFFER_CASE;
+			return Case.BUFFER_CASE + 50;
 		}
+	}
+
+	public void setVivant(boolean b) {
+		this.estVivant = b;
 	}
 }

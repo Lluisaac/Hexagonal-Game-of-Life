@@ -4,8 +4,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Map {
-	public static final int LONGUEUR = 10;
-	public static final int HAUTEUR = 10;
+	public static final int LONGUEUR = 25;
+	public static final int HAUTEUR = 25;
 	
 	private Case[][] map;
 	
@@ -27,5 +27,9 @@ public class Map {
 				g.drawImage(maCase.getImage(), maCase.getX(), maCase.getY());
 			}
 		}
+	}
+
+	public void click(int x, int y) {
+		this.map[0][0].setVivant(true);
 	}
 }

@@ -5,6 +5,8 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.MouseListener;
 import org.newdawn.slick.SlickException;
 
 public class Main extends BasicGame {
@@ -19,7 +21,52 @@ public class Main extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-    	
+    	container.getInput().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void setInput(Input arg0) {
+			}
+			
+			@Override
+			public boolean isAcceptingInput() {
+				return true;
+			}
+			
+			@Override
+			public void inputStarted() {
+			}
+			
+			@Override
+			public void inputEnded() {
+			}
+			
+			@Override
+			public void mouseWheelMoved(int arg0) {
+			}
+			
+			@Override
+			public void mouseReleased(int button, int x, int y) {
+				if(button == Input.MOUSE_LEFT_BUTTON) {
+					map.click(x, y);
+				}
+			}
+			
+			@Override
+			public void mousePressed(int arg0, int arg1, int arg2) {
+			}
+			
+			@Override
+			public void mouseMoved(int arg0, int arg1, int arg2, int arg3) {
+			}
+			
+			@Override
+			public void mouseDragged(int arg0, int arg1, int arg2, int arg3) {
+			}
+			
+			@Override
+			public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
+			}
+		});
     }
 
     @Override
@@ -33,6 +80,6 @@ public class Main extends BasicGame {
     }
     
     public static void main(String[] args) throws SlickException {
-        new AppGameContainer(new Main(), 640, 480, false).start();
+        new AppGameContainer(new Main(), 1600, 900, false).start();
     }
 }
