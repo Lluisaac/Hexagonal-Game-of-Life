@@ -4,7 +4,6 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
 import org.newdawn.slick.SlickException;
@@ -47,7 +46,11 @@ public class Main extends BasicGame {
 			@Override
 			public void mouseReleased(int button, int x, int y) {
 				if(button == Input.MOUSE_LEFT_BUTTON) {
-					map.click(x, y);
+					try {
+						map.click(x, y);
+					} catch (SlickException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			
