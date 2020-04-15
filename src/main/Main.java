@@ -9,8 +9,12 @@ import org.newdawn.slick.SlickException;
 
 public class Main extends BasicGame {
 	
+	private Map map;
+	
     public Main() {
-        super("Lesson 1 :: WindowGame");
+        super("Hexagonal Game of Life");
+        
+        this.map = new Map();
     }
 
     @Override
@@ -20,7 +24,7 @@ public class Main extends BasicGame {
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-    	g.drawImage(new Image("assets/alive.png"), 25, 25);
+    	this.map.render(g);
     }
 
     @Override
