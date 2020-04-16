@@ -1,5 +1,8 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -13,11 +16,23 @@ public class Case {
 	private int x;
 	private int y;
 	private boolean estVivant;
+	
+	private List<Case> adjacentes;
 
 	public Case(int i, int j) {
 		this.x = i;
 		this.y = j;
 		this.estVivant = false;
+		
+		this.adjacentes = new ArrayList<Case>();
+	}
+	
+	public boolean addAdjacente(Case adjacente) {
+		return this.adjacentes.add(adjacente);
+	}
+	
+	public boolean addAllAdjacente(List<Case> adjacentes) {
+		return this.adjacentes.addAll(adjacentes);
 	}
 
 	public Image getImage() throws SlickException {
