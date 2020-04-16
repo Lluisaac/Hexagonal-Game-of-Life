@@ -20,7 +20,7 @@ public class Map {
 				this.map.add(new Case(j, i));
 			}
 		}
-		
+
 		this.creerAdjacentes();
 	}
 
@@ -28,41 +28,45 @@ public class Map {
 		for (int i = 0; i < Map.LONGUEUR * Map.HAUTEUR; i++) {
 			List<Case> adjacentes = new ArrayList<Case>();
 			Case actuelle = this.map.get(i);
-			
+
 			int x = this.getXFrom(i);
 			int y = this.getYFrom(i);
-			
+
 			int indice = this.getValueFrom(((x - 1) + Map.LONGUEUR) % Map.LONGUEUR, y);
-			adjacentes.add(this.map.get(indice)); 
-			
+			adjacentes.add(this.map.get(indice));
+
 			indice = this.getValueFrom(((x + 1) + Map.LONGUEUR) % Map.LONGUEUR, y);
-			adjacentes.add(this.map.get(indice)); 
-			
-			indice = this.getValueFrom(((x + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR, ((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice)); 
-			
-			indice = this.getValueFrom(((x - 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR, ((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice)); 
-			
-			indice = this.getValueFrom(((x + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR, ((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice)); 
-			
-			indice = this.getValueFrom(((x - 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR, ((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice)); 
-			
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x - 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x - 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
 			actuelle.addAllAdjacente(adjacentes);
 		}
-		
+
 	}
-	
+
 	public int getXFrom(int value) {
 		return value % Map.LONGUEUR;
 	}
-	
+
 	public int getYFrom(int value) {
 		return value / Map.LONGUEUR;
 	}
-	
+
 	public int getValueFrom(int x, int y) {
 		return (y * Map.LONGUEUR) + x;
 	}
@@ -82,7 +86,6 @@ public class Map {
 
 		if (caseChoisie != null) {
 			caseChoisie.inverserVivant();
-			System.out.println(this.map.indexOf(caseChoisie));
 		}
 
 	}

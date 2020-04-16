@@ -16,21 +16,21 @@ public class Case {
 	private int x;
 	private int y;
 	private boolean estVivant;
-	
+
 	private List<Case> adjacentes;
 
 	public Case(int i, int j) {
 		this.x = i;
 		this.y = j;
 		this.estVivant = false;
-		
+
 		this.adjacentes = new ArrayList<Case>();
 	}
-	
+
 	public boolean addAdjacente(Case adjacente) {
 		return this.adjacentes.add(adjacente);
 	}
-	
+
 	public boolean addAllAdjacente(List<Case> adjacentes) {
 		return this.adjacentes.addAll(adjacentes);
 	}
@@ -70,14 +70,15 @@ public class Case {
 	public void setVivant(boolean b) {
 		this.estVivant = b;
 	}
-	
+
 	public void inverserVivant() {
 		this.estVivant = !this.estVivant;
 	}
 
 	public boolean contiensCoordonnees(float x, float y) throws SlickException {
 		boolean estAvant = (x < this.getX()) || (y < this.getY());
-		boolean estApres = (x > (this.getX() + this.getLongueurImage())) || (y > (this.getY() + this.getHauteurImage()));
+		boolean estApres = (x > (this.getX() + this.getLongueurImage()))
+				|| (y > (this.getY() + this.getHauteurImage()));
 
 		return !estAvant && !estApres && !this.dansTransparence(x, y);
 	}
