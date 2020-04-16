@@ -12,6 +12,9 @@ public class Case extends Element {
 	public static final int HAUTEUR_CASE = 29;
 	public static final int BUFFER_CASE = 8;
 
+	private static Image alive;
+	private static Image dead;
+	
 	private int x;
 	private int y;
 	private boolean estVivant;
@@ -27,6 +30,11 @@ public class Case extends Element {
 
 		this.adjacentes = new ArrayList<Case>();
 	}
+	
+	public static void init() throws SlickException {
+		Case.alive = new Image("assets/alive.png");
+		Case.dead = new Image("assets/dead.png");
+	}
 
 	public boolean addAdjacente(Case adjacente) {
 		return this.adjacentes.add(adjacente);
@@ -39,9 +47,9 @@ public class Case extends Element {
 	@Override
 	public Image getImage() throws SlickException {
 		if (estVivant) {
-			return new Image("assets/alive.png");
+			return Case.alive;
 		} else {
-			return new Image("assets/dead.png");
+			return Case.dead;
 		}
 	}
 	
