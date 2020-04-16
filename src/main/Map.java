@@ -26,7 +26,7 @@ public class Map {
 
 		for (int i = 0; i < Map.LONGUEUR; i++) {
 			for (int j = 0; j < Map.HAUTEUR; j++) {
-				Case maCase = this.map.get(j * Map.HAUTEUR + i);
+				Case maCase = this.map.get((j * Map.LONGUEUR) + i);
 				g.drawImage(maCase.getImage(), maCase.getX(), maCase.getY());
 			}
 		}
