@@ -7,8 +7,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Map {
-	public static final int LONGUEUR = 20;
-	public static final int HAUTEUR = 20;
+	public static final int LONGUEUR = 48;
+	public static final int HAUTEUR = 34;
 
 	private List<Case> map;
 	private Bouton actual;
@@ -19,14 +19,14 @@ public class Map {
 	public Map() throws SlickException {
 		this.map = new ArrayList<Case>();
 		
-		this.start = new Bouton("assets/start.png", 500, 500) {
+		this.start = new Bouton("assets/start.png", 1400, 800) {
 			@Override
 			public void click() {
 				start();
 			}
 		};
 		
-		this.stop = new Bouton("assets/stop.png", 500, 500) {
+		this.stop = new Bouton("assets/stop.png", 1400, 800) {
 
 			@Override
 			public void click() {
@@ -74,6 +74,28 @@ public class Map {
 			adjacentes.add(this.map.get(indice));
 
 			indice = this.getValueFrom(((x - 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+			
+			indice = this.getValueFrom(x, ((y + 2) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(x, ((y - 2) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x - 2 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x - 2 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x + 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
+					((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
+			adjacentes.add(this.map.get(indice));
+
+			indice = this.getValueFrom(((x + 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
 					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
 			adjacentes.add(this.map.get(indice));
 
