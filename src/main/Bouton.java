@@ -3,18 +3,16 @@ package main;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Bouton extends Element {
+public abstract class Bouton extends Element {
 	
 	private int x;
 	private int y;
 	private Image sprite;
-	private Map map;
 	
-	public Bouton(String chemin, int x, int y, Map map) throws SlickException{
+	public Bouton(String chemin, int x, int y) throws SlickException{
 		this.x = x;
 		this.y = y;
 		this.sprite = new Image(chemin); 
-		this.map = map;
 	}
 
 	@Override
@@ -31,10 +29,4 @@ public class Bouton extends Element {
 	public float getY() {
 		return this.y;
 	}
-
-	@Override
-	public void click() {
-		this.map.start();
-	}
-
 }
