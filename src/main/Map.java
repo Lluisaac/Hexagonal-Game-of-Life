@@ -76,28 +76,6 @@ public class Map {
 			indice = this.getValueFrom(((x - 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
 					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
 			adjacentes.add(this.map.get(indice));
-			
-			indice = this.getValueFrom(x, ((y + 2) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice));
-
-			indice = this.getValueFrom(x, ((y - 2) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice));
-
-			indice = this.getValueFrom(((x - 2 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
-					((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice));
-
-			indice = this.getValueFrom(((x - 2 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
-					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice));
-
-			indice = this.getValueFrom(((x + 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
-					((y - 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice));
-
-			indice = this.getValueFrom(((x + 1 + (y % 2)) + Map.LONGUEUR) % Map.LONGUEUR,
-					((y + 1) + Map.HAUTEUR) % Map.HAUTEUR);
-			adjacentes.add(this.map.get(indice));
 
 			actuelle.addAllAdjacente(adjacentes);
 		}
