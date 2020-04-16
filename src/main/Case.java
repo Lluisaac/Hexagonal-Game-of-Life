@@ -3,11 +3,10 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Case {
+public class Case extends Element {
 	private static final int OFFSET = 50;
 	public static final int LONGUEUR_CASE = 32;
 	public static final int HAUTEUR_CASE = 29;
@@ -16,13 +15,15 @@ public class Case {
 	private int x;
 	private int y;
 	private boolean estVivant;
-
+	private boolean prochainEtat;
+	
 	private List<Case> adjacentes;
 
 	public Case(int i, int j) {
 		this.x = i;
 		this.y = j;
 		this.estVivant = false;
+		this.prochainEtat = false;
 
 		this.adjacentes = new ArrayList<Case>();
 	}
@@ -34,7 +35,8 @@ public class Case {
 	public boolean addAllAdjacente(List<Case> adjacentes) {
 		return this.adjacentes.addAll(adjacentes);
 	}
-
+	
+	@Override
 	public Image getImage() throws SlickException {
 		if (estVivant) {
 			return new Image("assets/alive.png");
@@ -42,11 +44,13 @@ public class Case {
 			return new Image("assets/dead.png");
 		}
 	}
-
+	
+	@Override
 	public float getX() {
 		return Case.getXValueFrom(this.x, this.y);
 	}
 
+	@Override
 	public float getY() {
 		return Case.getYValueFrom(this.y);
 	}
@@ -75,29 +79,36 @@ public class Case {
 		this.estVivant = !this.estVivant;
 	}
 
-	public boolean contiensCoordonnees(float x, float y) throws SlickException {
-		boolean estAvant = (x < this.getX()) || (y < this.getY());
-		boolean estApres = (x > (this.getX() + this.getLongueurImage()))
-				|| (y > (this.getY() + this.getHauteurImage()));
-
-		return !estAvant && !estApres && !this.dansTransparence(x, y);
+	public void preUpdate() {
+		int vivantAdjacents = this.getNombreVivantsAdjacents();
+		this.prochainEtat = this.estVivant;
+		if(this.estVivant) {
+			if (vivantAdjacents != 2 && vivantAdjacents != 3) {
+				this.prochainEtat = false;
+			} 
+		} else {
+			if(vivantAdjacents == 3) {
+				this.prochainEtat = !this.estVivant;
+			}	
+		}
 	}
 
-	public int getHauteurImage() throws SlickException {
-		return this.getImage().getHeight();
+	private int getNombreVivantsAdjacents() {
+		int compteur = 0;
+		for (Case case1 : this.adjacentes) {
+			if(case1.estVivant) {
+				compteur++;
+			}
+		}
+		return compteur;
 	}
 
-	public int getLongueurImage() throws SlickException {
-		return this.getImage().getWidth();
+	public void postUpdate() {
+		this.setVivant(this.prochainEtat);
 	}
 
-	protected boolean dansTransparence(float x, float y) throws SlickException {
-		int spriteX = (int) (x - this.getX());
-		int spriteY = (int) (y - this.getY());
-
-		Image sprite = this.getImage();
-		Color pixelColor = sprite.getColor(spriteX, spriteY);
-
-		return pixelColor.getAlpha() == 0;
+	@Override
+	public void click() {
+		this.inverserVivant();
 	}
 }

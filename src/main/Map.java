@@ -7,20 +7,24 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Map {
-	public static final int LONGUEUR = 24;
-	public static final int HAUTEUR = 24;
+	public static final int LONGUEUR = 20;
+	public static final int HAUTEUR = 20;
 
 	private List<Case> map;
+	private Bouton start;
+	private boolean started;
 
-	public Map() {
+	public Map() throws SlickException {
 		this.map = new ArrayList<Case>();
+		this.start = new Bouton("assets/start.png", 500, 500, this);
+		this.started = false;
 
 		for (int i = 0; i < Map.HAUTEUR; i++) {
 			for (int j = 0; j < Map.LONGUEUR; j++) {
 				this.map.add(new Case(j, i));
 			}
 		}
-
+		
 		this.creerAdjacentes();
 	}
 
@@ -79,34 +83,52 @@ public class Map {
 				g.drawImage(maCase.getImage(), maCase.getX(), maCase.getY());
 			}
 		}
+
+		g.drawImage(this.start.getImage(), this.start.getX(), this.start.getY());
 	}
 
 	public void click(int x, int y) throws SlickException {
-		Case caseChoisie = this.getCaseAt(x, y);
-
-		if (caseChoisie != null) {
-			caseChoisie.inverserVivant();
+		Element choisi = this.getElementAt(x, y);
+		
+		if(choisi != null) {
+			choisi.click();
 		}
 
 	}
 
-	protected Case getCaseAt(float x, float y) throws SlickException {
+	protected Element getElementAt(float x, float y) throws SlickException {
 
-		List<Case> cases = new ArrayList<Case>(this.map);
+		List<Element> elements = new ArrayList<Element>(this.map);
+		elements.add(this.start);
 
-		for (int i = 0; i < cases.size(); i++) {
-			Case actuelle = cases.get(i);
+		for (int i = 0; i < elements.size(); i++) {
+			Element actuel = elements.get(i);
 
-			if (!actuelle.contiensCoordonnees(x, y)) {
-				cases.remove(actuelle);
+			if (!actuel.contiensCoordonnees(x, y)) {
+				elements.remove(actuel);
 				i--;
 			}
 		}
 
-		if (cases.size() > 0) {
-			return cases.get(cases.size() - 1);
+		if (elements.size() > 0) {
+			return elements.get(elements.size() - 1);
 		} else {
 			return null;
 		}
+	}
+
+	public void update() {
+		if (this.started) {
+			for (Case case1 : this.map) {
+				case1.preUpdate();
+			}
+			for (Case case1 : this.map) {
+				case1.postUpdate();
+			}
+		}
+	}
+
+	public void start() {
+		this.started = true;
 	}
 }

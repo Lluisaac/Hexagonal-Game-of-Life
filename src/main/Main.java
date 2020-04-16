@@ -10,18 +10,21 @@ import org.newdawn.slick.SlickException;
 
 public class Main extends BasicGame {
 
+	public static final int TICK_LENGTH = 1000;
 	private Map map;
+	private int surplus;
 
 	public Main() {
 		super("Hexagonal Game of Life");
-
-		this.map = new Map();
+		this.surplus = 0;
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
+		this.map = new Map();
+		
 		container.getInput().addMouseListener(new MouseListener() {
-
+			
 			@Override
 			public void setInput(Input arg0) {
 			}
@@ -79,7 +82,13 @@ public class Main extends BasicGame {
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-
+		this.surplus += delta;
+		int ticksFaits = (this.surplus / Main.TICK_LENGTH);
+		this.surplus %= Main.TICK_LENGTH;
+		
+		for(int i = 0; i < ticksFaits; i++) {
+			this.map.update();
+		}
 	}
 
 	public static void main(String[] args) throws SlickException {
